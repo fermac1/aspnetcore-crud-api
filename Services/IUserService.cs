@@ -10,5 +10,8 @@ public interface IUserService
     // get user by id
     Task<User?> GetUserByIdAsync(int id);
 
+    // create user
+    Task<User> CreateUserAsync(User user);
+
    
 }

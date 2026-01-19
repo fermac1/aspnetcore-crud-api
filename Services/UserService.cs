@@ -24,5 +24,12 @@ public class UserService : IUserService
         return await _context.Users.FindAsync(id);
     }
 
+    // create user
+    public async Task<User> CreateUserAsync(User user)
+    {
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+        return user;
+    }
 
 }
