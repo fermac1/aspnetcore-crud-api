@@ -35,4 +35,23 @@ public class UserController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
     }
 
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, User user)
+    {
+        if (id != user.Id) return BadRequest();
+
+        var updated = await _userService.UpdateUserAsync(user);
+        if (!updated) return NotFound();
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _userService.DeleteUserAsync(id);
+        if (!deleted) return NotFound();
+
+        return NoContent();
+    }
 }

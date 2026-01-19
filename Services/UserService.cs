@@ -32,4 +32,27 @@ public class UserService : IUserService
         return user;
     }
 
+    // update user
+    public async Task<bool> UpdateUserAsync(User user)
+    {
+        var existingUser = await _context.Users.FindAsync(user.Id);
+        if (existingUser == null) return false;
+
+        existingUser.Name = user.Name;
+        existingUser.Email = user.Email;
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+
+    // delete user
+    public async Task<bool> DeleteUserAsync(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null) return false;
+
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }
